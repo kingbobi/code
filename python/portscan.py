@@ -9,6 +9,7 @@ if len(sys.argv) != 2:
     sys.exit(0)
 
 ports=[]
+services=[]
 print "[START] nmap tcp-portscan against %s" % sys.argv[1].strip()
 NMAP = "nmap -sS -PN -A -p- -T4 %s" % sys.argv[1].strip()
 try:
@@ -17,9 +18,13 @@ try:
     for result in resultArr:
         if re.search(r"\d+\/tcp",result):
             print "[INFO] %s" % result
-            splitResult=result.split("/")
-            out=splitResult[0].strip()
-            ports.append(out)
+            splitResultPorts=result.split("/")
+            outPorts=splitResultPorts[0].strip()
+            
+            splitResultServices=result.split()
+            outServices=splitResultServices[2].strip()
+            ports.append(outPorts)
+            services.append(outServices)
             
         if re.search(r"^\|.*",result):
             print "[INFO] %s" % result
@@ -29,4 +34,5 @@ try:
 except:
     print "[ERROR] Exception in %s" % sys.argv[0].strip()
 print "[SUMMARY] %s - Ports: %s" % (sys.argv[1].strip(), ports)
+print "[SUMMARY] %s - Services: %s" % (sys.argv[1].strip(), services)
 print "[END] nmap tcp-portscan against %s " % sys.argv[1].strip()
