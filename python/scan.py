@@ -84,7 +84,7 @@ def portscan(ip):
         results = subprocess.check_output(NMAP, shell=True)
         resultArr = results.split("\n")
         for result in resultArr:
-            if re.search(r"\d+\/tcp.open",result):
+            if re.search(r"\d+\/tcp[ |\t]+open",result):
                 portscanlogger.debug("[INFO] %s" % result)
                 splitResultPorts=result.split("/")
                 outPorts=splitResultPorts[0].strip()
