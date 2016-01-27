@@ -1,12 +1,5 @@
-[16:47]  [INFO] IP up:  192.168.174.1 - MAC Address: 00:50:56:C0:00:01 (VMware) 
-[16:47]  [INFO] IP up:  192.168.174.254 - MAC Address: 00:50:56:F7:DF:FD (VMware) 
-[16:47]  [INFO] IP up:  192.168.174.132 - own IP - popped out of list
-[16:47]  [SUMMARY] 2 Hosts up in 192.168.174.0/24 (['192.168.174.1', '192.168.174.254'])
-[16:47]  [INFO] IP up:  192.168.174.1 - MAC Address: 00:50:56:C0:00:01 (VMware) 
-[16:47]  [INFO] IP up:  192.168.174.254 - MAC Address: 00:50:56:F7:DF:FD (VMware) 
-[16:47]  [INFO] IP up:  192.168.174.132 - own IP - popped out of list
-[16:47]  [SUMMARY] 2 Hosts up in 192.168.174.0/24 (['192.168.174.1', '192.168.174.254'])
-[17:13]  [INFO] IP up:  192.168.174.1 - MAC Address: 00:50:56:C0:00:01 (VMware) 
-[17:13]  [INFO] IP up:  192.168.174.254 - MAC Address: 00:50:56:F7:DF:FD (VMware) 
-[17:13]  [INFO] IP up:  192.168.174.132 - own IP - popped out of list
-[17:13]  [SUMMARY] 2 Hosts up in 192.168.174.0/24 (['192.168.174.1', '192.168.174.254'])
+[10:28]  [INFO] IP up:  192.168.174.1 - MAC Address: 00:50:56:C0:00:01 (VMware) 
+[10:28]  [INFO] IP up:  192.168.174.134 - MAC Address: 00:0C:29:D7:8D:8C (VMware) 
+[10:28]  [INFO] IP up:  192.168.174.254 - MAC Address: 00:50:56:E3:31:14 (VMware) 
+[10:28]  [INFO] IP up:  192.168.174.132 - own IP - popped out of list
+[10:28]  [SUMMARY] 3 Hosts up in 192.168.174.0/24 (['192.168.174.1', '192.168.174.134', '192.168.174.254'])
