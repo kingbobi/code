@@ -10,9 +10,9 @@ if len(sys.argv) != 2:
 
 
 print "[START] nikto scan against %s" % sys.argv[1].strip()
-NMAP = "nikto -h %s" % sys.argv[1].strip()
+NIKTO = "nikto -h %s" % sys.argv[1].strip()
 try:
-    results = subprocess.check_output(NMAP, shell=True)
+    results = subprocess.check_output(NIKTO, shell=True)
     resultArr = results.split("\n")
     for result in resultArr:
        print result
