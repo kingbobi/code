@@ -24,7 +24,7 @@ def netscan(iprange):
     netscanlogger.addHandler(netscanhandler)
     
     print "[START] nmap netscan against %s" % iprange
-    NMAP = "nmap -sn --exclude 192.168.178 %s" % iprange
+    NMAP = "nmap -sn %s" % iprange
     try:
         results = subprocess.check_output(NMAP, shell=True)
         resultArr = results.split("\n")
@@ -121,7 +121,7 @@ def nikto(ip,port):
     except:
         print "[ERROR] Exception in nikto scan against %s:%s" % (ip,sys.exc_info()) 
     
-    print "[ END ] nikto scan against %s" % ip
+    print "[ END ] nikto scan against %s on port %s" % (ip,port)
     
 def ssh(ip,port):
     print "[START] ssh brute against %s on port %s" % (ip,port)
@@ -142,7 +142,6 @@ def ssh(ip,port):
     print "[ END ] ssh brute against %s on port %s" % (ip,port)
     
 def checkService(args):
-    #print "[DEBUG] checkService with args %s " % args
     
     ip=args[0]
     serv=db[ip][1][args[1]]    
@@ -171,21 +170,7 @@ def main():
     global db
     db=dict()
     
-
-    #for ip in targets:
-    #    s=portscan(ip)
-    #    services[ip]=s
-    #    print services
-        
-    #print len(services["192.168.174.134"])
-    #print len(services["192.168.174.134"][0]) #
-    #print services["192.168.174.134"][0]    #[22,80]
-    #print services["192.168.174.134"][1]    #[ssh,http]
-    #print services["192.168.174.134"][0][1] # 80
-    #print services["192.168.174.134"]
-    
-
-    
+ 
     portscanPool = Pool(4)
     portscanResults = portscanPool.map_async(portscan, targets)
     portscanPool.close()
@@ -212,9 +197,6 @@ def main():
     print "[ END ] "+"="*35+" [ END ]"
 
     
-    
-
-#    parser.print_help()
 
 if __name__ == "__main__":
     main()
