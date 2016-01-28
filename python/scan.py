@@ -5,7 +5,6 @@ import argparse
 import subprocess
 import sys
 import logging
-import requests
 from multiprocessing.dummy import Pool
 import re
 
@@ -25,7 +24,7 @@ def netscan(iprange):
     netscanlogger.addHandler(netscanhandler)
     
     print "[START] nmap netscan against %s" % iprange
-    NMAP = "nmap -sn %s" % iprange
+    NMAP = "nmap -sn --exclude 192.168.178 %s" % iprange
     try:
         results = subprocess.check_output(NMAP, shell=True)
         resultArr = results.split("\n")
@@ -142,20 +141,19 @@ def ssh(ip,port):
     os.remove('pws-'+ip+'.txt')
     print "[ END ] ssh brute against %s on port %s" % (ip,port)
     
+def checkService(args):
+    #print "[DEBUG] checkService with args %s " % args
     
-def checkServices(ip):
-    print "[START] checkServices for ip %s" % ip
-    for s in range(len(db[ip][1])):
-            if db[ip][1][s] == "http":
-                nikto(ip, db[ip][0][s])
-            elif (db[ip][1][s] == "ssl/http") or ("https" in db[ip][1][s]):
-                nikto(ip, db[ip][0][s])
+    ip=args[0]
+    serv=db[ip][1][args[1]]    
+    
+    
+    if serv == "http":
+        nikto(ip, db[ip][0][args[1]])
+    elif (serv == "ssl/http") or ("https" in serv):
+        nikto(ip, db[ip][0][args[1]])
             #elif db[ip][1][s] == "ssh":
             #    ssh(ip,db[ip][0][s])
-                    
-
-    print "[ END ] checkServices for ip %s"  % ip
-    
 
 def main():
     #TODO clean Logs
@@ -188,21 +186,30 @@ def main():
     
 
     
-    pool = Pool(2)
-    results = pool.map_async(portscan, targets)
-    pool.close()
-    pool.join()
+    portscanPool = Pool(4)
+    portscanResults = portscanPool.map_async(portscan, targets)
+    portscanPool.close()
+    portscanPool.join()
+    
+    ipServiceList= []
+    
     
     for ip in db.keys():
         if len(db[ip][1]) == 0 and len(db[ip][0]) == 0:
             print "[INFO ] no open ports in %s, delete key and remove dir" % ip
             del db[ip]
             removeEmptyEnv(ip)
+        else:
+            for s in range(len(db[ip][1])):
+                ipServiceList.append([ip, s])
+                
     
-    pool2 = Pool(3)
-    results2 = pool2.map_async(checkServices, db.keys())
-    pool2.close()
-    pool2.join()
+    sericePool = Pool(4)
+    serviceResults = sericePool.map_async(checkService, ipServiceList)
+    sericePool.close()
+    sericePool.join()
+    
+    print "[ END ] "+"="*35+" [ END ]"
 
     
     
